@@ -1,0 +1,150 @@
+﻿body {
+    padding-top: 5px;
+    padding-bottom: 10px;
+    font-family:Calibri;
+
+    background-image:url(../Images/car-bg.jpeg);
+    background-repeat:no-repeat;
+    background-position-x:top;
+    background-size:cover;
+    background-color:#14151a;
+
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    .body-content {
+        padding: 0;
+    }
+}
+
+.entry {
+    color:white;
+    margin-left:33.33333%; 
+    background-color:cadetblue; 
+    border:thin; 
+    border-color:dimgray;
+    border-radius:5px 5px 5px 5px;
+    padding:5px 5px 5px 5px;
+    align-content:center;
+    max-width:500px;
+    
+}
+
+.addDrivers {
+    color:white;
+    background-color:cadetblue; 
+    border:thin; 
+    border-color:dimgray;
+    border-radius:5px 5px 5px 5px;
+    padding:5px 5px 5px 5px;
+    align-content:center;
+    max-width:500px;
+    float:right;
+    margin-right:10%;
+    clear:left;
+    
+}
+
+.addClaims {
+    color:white;
+    margin-left:33.33333%; 
+    margin-right:0%;
+    background-color:cadetblue; 
+    border:thin; 
+    border-color:dimgray;
+    border-radius:5px 5px 5px 5px;
+    padding:5px 5px 5px 5px;
+    align-content:center;
+    max-width:500px;
+    float:right;
+    
+}
+
+.input {
+    border-radius:5px 5px 5px 5px;
+    margin:5px 2px 12px 10px;
+}
+
+.labels {
+     margin-left: 0px;
+}
+
+.claims {
+    width:100%;
+}
+
+h1 {
+
+    text-align: center;
+    color: white;
+    font-family:Calibri;
+    font-style:normal;
+}
+
+.instruction {
+    font-size:16px;
+    font-family:Calibri;
+    color:white;
+    margin-left:20%;
+    margin-right:0%;
+}
+
+.driverbtn  {
+    border-radius: 8px;
+    background-color: lightgray;
+    border: none;
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    font-size: 14px;
+    margin-left:5px;
+    margin-right:5px;
+    float:left;
+ 
+}
+
+.buttonDiv {
+    width:100%;
+    clear:both;
+    background:red;
+    
+    margin: 0% 50% 0% 50%;
+
+}
+
+.submitbtn  {
+    border-radius: 8px;
+    background-color: lightgray;
+    border: none;
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0% 35% 0% 35%;
+    min-width:130px;
+    width:130px;
+ 
+}
+
+.claimb  {
+    border-radius: 8px;
+    background-color: lightgray;
+    border: none;
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0% 80% 0% 0%;
+    min-width:130px;
+    width:130px;
+}
