@@ -26,15 +26,20 @@
 }
 
 .entry {
-    color:white;
-    margin-left:33.33333%; 
-    background-color:cadetblue; 
-    border:thin; 
-    border-color:dimgray;
+    color:cadetblue;
+    margin-left:33.33333%;
+    margin-right:33.33333%;  
+    background-color:white; 
+    border-color: #5cb85c;
+    border-width:medium;
     border-radius:5px 5px 5px 5px;
     padding:5px 5px 5px 5px;
     align-content:center;
     max-width:500px;
+    text-align:center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    font-family:Calibri;
+
     
 }
 
@@ -53,20 +58,23 @@
     
 }
 
-.addClaims {
-    color:white;
-    margin-left:33.33333%; 
-    margin-right:0%;
-    background-color:cadetblue; 
-    border:thin; 
-    border-color:dimgray;
+.col1 {
+    color:cadetblue;
+    margin-left:5%;
+    float:left;
+    background-color:white; 
+    border-color: #5cb85c;
+    border-width:medium;
     border-radius:5px 5px 5px 5px;
     padding:5px 5px 5px 5px;
     align-content:center;
     max-width:500px;
-    float:right;
-    
+    text-align:center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    font-family:Calibri;
+
 }
+
 
 .input {
     border-radius:5px 5px 5px 5px;
@@ -74,7 +82,8 @@
 }
 
 .labels {
-     margin-left: 0px;
+     margin: 5px 0px 5px 0px;
+     padding-top:5px;
 }
 
 .claims {
@@ -84,17 +93,22 @@
 h1 {
 
     text-align: center;
-    color: white;
     font-family:Calibri;
     font-style:normal;
+    border-color:white;
+    color: white;
+    text-shadow: 2px 2px 2px #000000;
 }
 
 .instruction {
-    font-size:16px;
+    font-size:18px;
     font-family:Calibri;
-    color:white;
-    margin-left:20%;
-    margin-right:0%;
+    color:cadetblue;
+}
+
+.decline {
+    font-family:Calibri;
+    color:red;
 }
 
 .driverbtn  {
@@ -132,10 +146,9 @@ h1 {
     margin: 0% 35% 0% 35%;
     min-width:130px;
     width:130px;
- 
 }
 
-.claimb  {
+.cancelbtn  {
     border-radius: 8px;
     background-color: lightgray;
     border: none;
@@ -144,7 +157,37 @@ h1 {
     text-align: center;
     display: inline-block;
     font-size: 14px;
-    margin: 0% 80% 0% 0%;
+    margin: 0% 10% 0% 10%;
     min-width:130px;
     width:130px;
 }
+
+.claimb  {
+    border-radius: 8px;
+    background-color: lightgray;
+    border: none;
+    color: black;
+    padding: 8px 8px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0% 35% 1% 35%;
+    min-width:130px;
+    width:130px;
+}
+
+.claimpanelbtns  {
+    border-radius: 8px;
+    background-color: lightgray;
+    border: none;
+    color: black;
+    padding: 3px 3px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0% 2% 0% 2%;
+    min-width:130px;
+    width:130px;
+    float:left;
+}
+

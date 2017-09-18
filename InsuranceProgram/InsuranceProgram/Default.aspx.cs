@@ -16,113 +16,64 @@ namespace InsuranceProgram
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            if (IsPostBack)
+        }
+
+        //CheckDate method checks the submitted Start Date is valid 
+        protected void CheckDate(object sender, EventArgs e)
+        {
+            startDate.DataBind();
+
+            //If no start date is entered, request one:
+            if (string.IsNullOrWhiteSpace(startDate.Text))
             {
-                //Postback actions:
+                Decline.Text = "Please enter a valid policy start date.";
+                Decline.Visible = true;
             }
             else
             {
-                //Do nothing
+                //Declaring DateTime and storing start date:
+                DateTime sDate = Convert.ToDateTime(startDate.Text);
+
+                //Obtaining today's date:
+                DateTime today = DateTime.Now.Date;
+
+                //If statement, comparing today's date to submitted start date:
+                if (sDate.Date < today.Date)
+                {
+                    //Decline - start date prior to today
+                    Decline.Text = "Declined - Start Date of Policy";
+                    Decline.Visible = true;
+                }
+
+                if (sDate.Date > today.Date || sDate.Date == today.Date)
+                {
+                    //Hiding decline message if acceptable date is entered
+                    Decline.Visible = false;
+
+                    //Start date acceptable, submit to database as potential policy
+                    string connectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    SqlConnection myConnection = new SqlConnection(connectionString);
+
+                    myConnection.Open();
+
+                    string sql = "INSERT INTO Policy (startDate) OUTPUT INSERTED.policyID VALUES (@start)";
+                    SqlCommand cmd = new SqlCommand(sql, myConnection);
+                    //Parameterising value:
+                    cmd.Parameters.Add(new SqlParameter("@start", sDate));
+                    int newPolicyID = (int)cmd.ExecuteScalar();
+
+                    //If a new Policy was successfully created, move to Step two with the new policy ID
+                    if (newPolicyID != null)
+                    {
+                        Response.Redirect("StepTwo.aspx?policyID=" + newPolicyID);
+                    }
+
+                    myConnection.Close();
+
+                }
             }
 
         }
 
-        //Calculate policy price method
-        protected void Calculate(object sender, EventArgs e)
-        {
-
-            //If driver X div visible, include their details in insert
-            //if claim X visible, insert to claims, attached to driver
-
-            //Declaring Strings to store personal info:
-            String primaryName, primaryLName, primaryOccupation, primaryDOB, sDate;
-            /*
-            fName.Text = primaryName;
-            lName.Text = primaryLName;
-            occ.Text = primaryOccupation;
-            dob.Text = primaryDOB; */
-            startDate.DataBind();
-            sDate = startDate.Text;
-
-            string connectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            SqlConnection myConnection = new SqlConnection(connectionString);
-            myConnection.Open();
-
-            string sql = "INSERT INTO Policy (startDate) VALUES (@start)";
-            SqlCommand cmd = new SqlCommand(sql, myConnection);
-            cmd.Parameters.Add(new SqlParameter("@start", sDate));
-            int rowsAffected = cmd.ExecuteNonQuery();
-            myConnection.Close();
-           
-            /*
-            //second add driver, after policy created
-            string sql2 = "INSERT INTO driver (name, lname, occupation, dob) VALUES (@params)";
-            SqlCommand cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.Add(new SqlParameter("@name", fName.Text));
-            int rowsAffected = cmd.ExecuteNonQuery();
-            conn.Close(); */
-        //    }
-
-        
-        }
-
-
-        //Add driver methods, displays a new driver details panel when one of the 'Add driver' buttons are clicked - for up to 4 additonal drivers.
-        protected void addDriver2(object sender, EventArgs e)
-        {
-            addDriverTwo.Visible = true;
-            driver2.Visible = false;
-        }
-
-        protected void addDriver3(object sender, EventArgs e)
-        {
-            addDriverThree.Visible = true;
-        }
-
-        protected void addDriver4(object sender, EventArgs e)
-        {
-            addDriverFour.Visible = true;
-        }
-
-        protected void addDriver5(object sender, EventArgs e)
-        {
-            addDriverFive.Visible = true;
-        }
-
-        //Remove driver methods, removes a driver details panel which has been previously added
-        protected void removeDriver2(object sender, EventArgs e)
-        {
-            addDriverTwo.Visible = false;
-            driver2.Visible = true;
-        }
-        protected void removeDriver3(object sender, EventArgs e)
-        {
-            addDriverThree.Visible = false;
-        }
-        protected void removeDriver4(object sender, EventArgs e)
-        {
-            addDriverFour.Visible = false;
-        }
-        protected void removeDriver5(object sender, EventArgs e)
-        {
-            addDriverFive.Visible = false;
-        }
-
-
-        //Method if checkbox changes, show the claims panel
-        protected void claimCheck_CheckedChanged(object sender, EventArgs e)
-        {
-            claimCheck.DataBind();
-            ;
-            if (addClaim1.Visible == false)
-            {
-                addClaim1.Visible = true;
-            }
-            else if (addClaim1.Visible == true)
-            {
-                addClaim1.Visible = false;
-            }
-
-        }
     }
 }
