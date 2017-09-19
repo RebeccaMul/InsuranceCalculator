@@ -19,28 +19,30 @@
             $("#claimDate").datepicker({
                 dateFormat: "dd/mm/yy"
             });
+            $("#claim2").datepicker({
+                dateFormat: "dd/mm/yy"
+            });
+            $("#claim3").datepicker({
+                dateFormat: "dd/mm/yy"
+            });
+            $("#claim4").datepicker({
+                dateFormat: "dd/mm/yy"
+            });
+            $("#claim5").datepicker({
+                dateFormat: "dd/mm/yy"
+            });
         });
     </script>
-    <%-- End JQuery --%></head>
+    <%-- End JQuery --%>
+</head>
 <body>
     <h1>Motor Insurance Calculator</h1>
 
     <form id="entryForm" runat="server">
 
-        <%-- Previous approved details column: --%>
-        <div class="col1">
-            <asp:Label ID="CurrentLabel" runat="server" Text="Current policy details:" CssClass="instruction" />
-            <br />
-            Chosen Start Date:
-            <asp:Label ID="chosenStart" runat="server" Style="color: black" /><br />
-            <br />
-            <asp:Button runat="server" CssClass="cancelbtn" Text="Cancel" OnClick="Cancel" />
-
-        </div>
-
         <div class="entry">
 
-            <asp:Label ID="Instruction" runat="server" Text="Please enter the Primary Driver's Details:" CssClass="instruction"></asp:Label><br />
+            <asp:Label ID="Instruction" runat="server" Text="Please enter the Primary Driver's details:" CssClass="instruction"></asp:Label><br />
             <br />
 
             <%-- First driver Text labels div --%>
@@ -75,7 +77,8 @@
                 <asp:RequiredFieldValidator ID="requiredOcc" runat="server" ControlToValidate="occ" ErrorMessage="*" ForeColor="Red" ValidationGroup="detailsCheck"></asp:RequiredFieldValidator>
                 <br />
                 <asp:TextBox ID="dobirth" runat="server" CssClass="input" Placeholder="dd/mm/yyyy" />
-                <asp:RequiredFieldValidator ID="requiredDOB" runat="server" ControlToValidate="dobirth" ErrorMessage="*" ForeColor="Red" ValidationGroup="detailsCheck"></asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator ID="requiredDOB" runat="server" ControlToValidate="dobirth" ErrorMessage="*" ForeColor="Red" ValidationGroup="detailsCheck"></asp:RequiredFieldValidator><br />
+                <asp:RangeValidator ID="DateValidator" runat="server" ErrorMessage="Please enter a valid date" ControlToValidate="dobirth" Type="Date" MinimumValue="1/1/1900" MaximumValue="1/1/9000" ForeColor="Red"/>
                 <br />
             </div>
 
@@ -84,7 +87,7 @@
             <%-- Visible Claim area --%>
             <div id="claims" style="width: 100%; clear: both;">
                 <asp:Label ID="ClaimsLabel" runat="server" Text="Please add any previous insurance claims, if applicable:"></asp:Label><br />
-                <asp:Label ID="ClaimDeclaration" runat="server" Text="I have no previous claims"></asp:Label><asp:CheckBox ID="claimCheck" runat="server" CssClass="input" OnCheckedChanged="noClaims" AutoPostBack="true"/>
+                <asp:Label ID="ClaimDeclaration" runat="server" Text="I have no previous claims"></asp:Label><asp:CheckBox ID="claimCheck" runat="server" CssClass="input" OnCheckedChanged="noClaims" AutoPostBack="true" />
                 <asp:Button ID="claimbtn" runat="server" CssClass="claimb" Text="Add a claim" OnClick="addClaim" />
             </div>
 
@@ -94,38 +97,51 @@
 
                 <%-- Drop down list for user to select the number of claims to add (Max of 5) --%>
                 <asp:DropDownList ID="claimNums" runat="server" OnSelectedIndexChanged="claimNumsChange" AutoPostBack="True">
-                <asp:ListItem Enabled="true" Text="How many claims would you like to add?" Value="-1"></asp:ListItem>
-                <asp:ListItem Text="1" Value="1"></asp:ListItem>
-                <asp:ListItem Text="2" Value="2"></asp:ListItem>
-                <asp:ListItem Text="3" Value="3"></asp:ListItem>
-                <asp:ListItem Text="4" Value="4"></asp:ListItem>
-                <asp:ListItem Text="5" Value="5"></asp:ListItem>
+                    <asp:ListItem Enabled="true" Text="How many claims would you like to add?" Value="-1"></asp:ListItem>
+                    <asp:ListItem Text="1" Value="1"></asp:ListItem>
+                    <asp:ListItem Text="2" Value="2"></asp:ListItem>
+                    <asp:ListItem Text="3" Value="3"></asp:ListItem>
+                    <asp:ListItem Text="4" Value="4"></asp:ListItem>
+                    <asp:ListItem Text="5" Value="5"></asp:ListItem>
                 </asp:DropDownList>
 
-                <asp:RequiredFieldValidator ID="ReqClaimNum" runat="server" ControlToValidate="claimNums" InitialValue="-1" ErrorMessage="*" ForeColor="Red" ValidationGroup="claimsCheck"/>
+                <asp:RequiredFieldValidator ID="ReqClaimNum" runat="server" ControlToValidate="claimNums" InitialValue="-1" ErrorMessage="*" ForeColor="Red" ValidationGroup="detailsCheck" />
                 <br />
 
-                 <%-- --%>
-                <asp:Label ID="claimDateLabel" runat="server" Text="Date of Claim(s):" Visible="false"/><br />
-                <asp:TextBox ID="claimDate" runat="server" CssClass="input" Placeholder="dd/mm/yyyy" Visible="false"/>
-                <asp:RequiredFieldValidator ID="RequiredClaimDate" runat="server" ControlToValidate="claimDate" ErrorMessage="*" ForeColor="Red" ValidationGroup="claimsCheck"></asp:RequiredFieldValidator>
- 
-                <asp:TextBox ID="claim2" runat="server" CssClass="input" Placeholder="dd/mm/yyyy" Visible="false"/>
-                <asp:RequiredFieldValidator ID="RequiredClaim2" runat="server" ControlToValidate="claimDate" ErrorMessage="*" ForeColor="Red" ValidationGroup="claimsCheck"></asp:RequiredFieldValidator>
-                <asp:TextBox ID="claim3" runat="server" CssClass="input" Placeholder="dd/mm/yyyy" Visible="false"/>
-                <asp:RequiredFieldValidator ID="RequiredClaim3" runat="server" ControlToValidate="claimDate" ErrorMessage="*" ForeColor="Red" ValidationGroup="claimsCheck"></asp:RequiredFieldValidator>
-                <asp:TextBox ID="claim4" runat="server" CssClass="input" Placeholder="dd/mm/yyyy" Visible="false"/>
-                <asp:RequiredFieldValidator ID="RequiredClaim4" runat="server" ControlToValidate="claimDate" ErrorMessage="*" ForeColor="Red" ValidationGroup="slaimsCheck"></asp:RequiredFieldValidator>
-                <asp:TextBox ID="claim5" runat="server" CssClass="input" Placeholder="dd/mm/yyyy" Visible="false"/>
-                <asp:RequiredFieldValidator ID="RequiredClaim5" runat="server" ControlToValidate="claimDate" ErrorMessage="*" ForeColor="Red" ValidationGroup="claimsCheck"></asp:RequiredFieldValidator>
-                
+                <%-- --%>
+                <asp:Label ID="claimDateLabel" runat="server" Text="Date of Claim(s):" Visible="false" /><br />
+                <asp:TextBox ID="claimDate" runat="server" CssClass="input" Placeholder="dd/mm/yyyy" Visible="false" />
+                <asp:RequiredFieldValidator ID="RequiredClaimDate" runat="server" ControlToValidate="claimDate" ErrorMessage="*" ForeColor="Red" ValidationGroup="detailsCheck"></asp:RequiredFieldValidator>
+
+                <asp:TextBox ID="claim2" runat="server" CssClass="input" Placeholder="dd/mm/yyyy" Visible="false" />
+                <asp:RequiredFieldValidator ID="RequiredClaim2" runat="server" ControlToValidate="claimDate" ErrorMessage="*" ForeColor="Red" ValidationGroup="detailsCheck"></asp:RequiredFieldValidator>
+                <asp:TextBox ID="claim3" runat="server" CssClass="input" Placeholder="dd/mm/yyyy" Visible="false" />
+                <asp:RequiredFieldValidator ID="RequiredClaim3" runat="server" ControlToValidate="claimDate" ErrorMessage="*" ForeColor="Red" ValidationGroup="detailsCheck"></asp:RequiredFieldValidator>
+                <asp:TextBox ID="claim4" runat="server" CssClass="input" Placeholder="dd/mm/yyyy" Visible="false" />
+                <asp:RequiredFieldValidator ID="RequiredClaim4" runat="server" ControlToValidate="claimDate" ErrorMessage="*" ForeColor="Red" ValidationGroup="detailsCheck"></asp:RequiredFieldValidator>
+                <asp:TextBox ID="claim5" runat="server" CssClass="input" Placeholder="dd/mm/yyyy" Visible="false" />
+                <asp:RequiredFieldValidator ID="RequiredClaim5" runat="server" ControlToValidate="claimDate" ErrorMessage="*" ForeColor="Red" ValidationGroup="detailsCheck"></asp:RequiredFieldValidator>
+
             </asp:Panel>
-           
+
             <asp:Button runat="server" CssClass="submitbtn" Text="Next" OnClick="checkDriver" ValidationGroup="detailsCheck" />
             <br />
             <asp:Label ID="Decline" runat="server" Text=" " Visible="false" ForeColor="Red"></asp:Label>
         </div>
         <%-- End Central Div --%>
+
+                <%-- Previous approved details column: --%>
+        <div class="col1">
+            <asp:Label ID="CurrentLabel" runat="server" Text="Current policy details:" CssClass="instruction" />
+            <br />
+            Chosen Start Date:
+            <asp:Label ID="chosenStart" runat="server" Style="color: black" /><br />
+            <br />
+            <asp:Button runat="server" CssClass="cancelbtn" Text="Cancel" OnClick="Cancel" />
+
+        </div>
+
+
     </form>
 </body>
 </html>

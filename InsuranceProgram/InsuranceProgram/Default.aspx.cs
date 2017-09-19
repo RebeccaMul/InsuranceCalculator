@@ -37,7 +37,7 @@ namespace InsuranceProgram
                 //Obtaining today's date:
                 DateTime today = DateTime.Now.Date;
 
-                //If statement, comparing today's date to submitted start date:
+                //Comparing today's date to submitted start date:
                 if (sDate.Date < today.Date)
                 {
                     //Decline - start date prior to today
@@ -62,14 +62,12 @@ namespace InsuranceProgram
                     cmd.Parameters.Add(new SqlParameter("@start", sDate));
                     int newPolicyID = (int)cmd.ExecuteScalar();
 
+                    myConnection.Close();
                     //If a new Policy was successfully created, move to Step two with the new policy ID
                     if (newPolicyID != null)
                     {
                         Response.Redirect("StepTwo.aspx?policyID=" + newPolicyID);
                     }
-
-                    myConnection.Close();
-
                 }
             }
 

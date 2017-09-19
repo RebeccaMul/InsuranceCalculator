@@ -22,201 +22,291 @@ namespace InsuranceProgram {
         protected global::System.Web.UI.HtmlControls.HtmlForm entryForm;
         
         /// <summary>
-        /// driver2 control.
+        /// Instruction control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button driver2;
+        protected global::System.Web.UI.WebControls.Label Instruction;
         
         /// <summary>
-        /// addDriverTwo control.
+        /// DriverDeclaration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel addDriverTwo;
+        protected global::System.Web.UI.WebControls.Label DriverDeclaration;
         
         /// <summary>
-        /// Label1 control.
+        /// driverCheck control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.CheckBox driverCheck;
         
         /// <summary>
-        /// Label2 control.
+        /// driverbtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Button driverbtn;
         
         /// <summary>
-        /// Label3 control.
+        /// moreDrivers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.Panel moreDrivers;
         
         /// <summary>
-        /// Label4 control.
+        /// driverNums control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.WebControls.DropDownList driverNums;
         
         /// <summary>
-        /// driverTwoClaim control.
+        /// ReqDriverNum control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label driverTwoClaim;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqDriverNum;
         
         /// <summary>
-        /// TextBox1 control.
+        /// driverDetailLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.Label driverDetailLabel;
         
         /// <summary>
-        /// TextBox2 control.
+        /// newDriver2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl newDriver2;
         
         /// <summary>
-        /// TextBox3 control.
+        /// fnamelabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox3;
+        protected global::System.Web.UI.WebControls.Label fnamelabel;
         
         /// <summary>
-        /// TextBox4 control.
+        /// fNameDecline control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox4;
+        protected global::System.Web.UI.WebControls.Label fNameDecline;
         
         /// <summary>
-        /// claimDate control.
+        /// surname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox claimDate;
+        protected global::System.Web.UI.WebControls.Label surname;
         
         /// <summary>
-        /// remove2 control.
+        /// lNameDecline control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button remove2;
+        protected global::System.Web.UI.WebControls.Label lNameDecline;
         
         /// <summary>
-        /// driver3 control.
+        /// occupation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button driver3;
+        protected global::System.Web.UI.WebControls.Label occupation;
         
         /// <summary>
-        /// addDriverThree control.
+        /// occDecline control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel addDriverThree;
+        protected global::System.Web.UI.WebControls.Label occDecline;
         
         /// <summary>
-        /// remove3 control.
+        /// dateofbirth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button remove3;
+        protected global::System.Web.UI.WebControls.Label dateofbirth;
         
         /// <summary>
-        /// driver4 control.
+        /// dobDecline control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button driver4;
+        protected global::System.Web.UI.WebControls.Label dobDecline;
         
         /// <summary>
-        /// addDriverFour control.
+        /// fName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel addDriverFour;
+        protected global::System.Web.UI.WebControls.TextBox fName;
         
         /// <summary>
-        /// remove4 control.
+        /// requiredFName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button remove4;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator requiredFName;
         
         /// <summary>
-        /// driver5 control.
+        /// lName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button driver5;
+        protected global::System.Web.UI.WebControls.TextBox lName;
         
         /// <summary>
-        /// addDriverFive control.
+        /// requiredLName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel addDriverFive;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator requiredLName;
         
         /// <summary>
-        /// Remove control.
+        /// occ control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Remove;
+        protected global::System.Web.UI.WebControls.TextBox occ;
+        
+        /// <summary>
+        /// requiredOcc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator requiredOcc;
+        
+        /// <summary>
+        /// dobirth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox dobirth;
+        
+        /// <summary>
+        /// requiredDOB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator requiredDOB;
+        
+        /// <summary>
+        /// DateValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator DateValidator;
+        
+        /// <summary>
+        /// Decline control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Decline;
+        
+        /// <summary>
+        /// CurrentLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label CurrentLabel;
+        
+        /// <summary>
+        /// chosenStart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label chosenStart;
+        
+        /// <summary>
+        /// nameDriver control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label nameDriver;
+        
+        /// <summary>
+        /// occDriver control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label occDriver;
+        
+        /// <summary>
+        /// dobDriver control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label dobDriver;
     }
 }

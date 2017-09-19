@@ -27,8 +27,8 @@
 
 .entry {
     color:cadetblue;
-    margin-left:33.33333%;
-    margin-right:33.33333%;  
+    margin-right:35%;
+    float:right;  
     background-color:white; 
     border-color: #5cb85c;
     border-width:medium;
@@ -36,11 +36,11 @@
     padding:5px 5px 5px 5px;
     align-content:center;
     max-width:500px;
+    min-width:30%;
     text-align:center;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
     font-family:Calibri;
 
-    
 }
 
 .addDrivers {
@@ -68,11 +68,12 @@
     border-radius:5px 5px 5px 5px;
     padding:5px 5px 5px 5px;
     align-content:center;
-    max-width:500px;
+    max-width:200px;
+    min-width:15%;
     text-align:center;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
     font-family:Calibri;
-
+    
 }
 
 
@@ -189,5 +190,10 @@ h1 {
     min-width:130px;
     width:130px;
     float:left;
+}
+
+.savedDetails {
+    color:black;
+    margin-bottom:5px;
 }
 

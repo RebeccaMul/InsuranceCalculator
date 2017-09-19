@@ -22,24 +22,6 @@ namespace InsuranceProgram {
         protected global::System.Web.UI.HtmlControls.HtmlForm entryForm;
         
         /// <summary>
-        /// CurrentLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentLabel;
-        
-        /// <summary>
-        /// chosenStart control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label chosenStart;
-        
-        /// <summary>
         /// Instruction control.
         /// </summary>
         /// <remarks>
@@ -191,6 +173,15 @@ namespace InsuranceProgram {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator requiredDOB;
+        
+        /// <summary>
+        /// DateValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator DateValidator;
         
         /// <summary>
         /// ClaimsLabel control.
@@ -362,5 +353,23 @@ namespace InsuranceProgram {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Decline;
+        
+        /// <summary>
+        /// CurrentLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label CurrentLabel;
+        
+        /// <summary>
+        /// chosenStart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label chosenStart;
     }
 }

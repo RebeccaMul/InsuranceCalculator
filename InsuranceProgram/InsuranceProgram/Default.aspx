@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        $(function () {
+        jQuery(function ($) {
             $("#startDate").datepicker({
                 dateFormat: "dd/mm/yy"
             });
@@ -40,8 +40,9 @@
 
             <%-- Input field div --%>
             <div id="inputs" style="float: right; width: 70%;">
-                <asp:TextBox ID="startDate" runat="server" CssClass="input" Placeholder="dd/mm/yyyy"></asp:TextBox>
-
+                <asp:TextBox ID="startDate" runat="server" CssClass="input" Placeholder="dd/mm/yyyy"></asp:TextBox><br />
+                 <asp:RangeValidator ID="DateValidator" runat="server" ErrorMessage="Please enter a valid date" ControlToValidate="startDate" Type="Date" MinimumValue="1/1/1900" MaximumValue="31/12/9999" ForeColor="Red"/>
+               
             </div><br />
             <br />
             <asp:Button runat="server" CssClass="submitbtn" OnClick="CheckDate" Text="Next" /><br />
