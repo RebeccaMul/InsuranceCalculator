@@ -190,6 +190,7 @@
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
     <Content Include="StepThree.aspx" />
+    <Content Include="StepThreeClaim.aspx" />
     <Content Include="StepTwo.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
@@ -249,6 +250,13 @@
     </Compile>
     <Compile Include="StepThree.aspx.designer.cs">
       <DependentUpon>StepThree.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StepThreeClaim.aspx.cs">
+      <DependentUpon>StepThreeClaim.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StepThreeClaim.aspx.designer.cs">
+      <DependentUpon>StepThreeClaim.aspx</DependentUpon>
     </Compile>
     <Compile Include="StepTwo.aspx.cs">
       <DependentUpon>StepTwo.aspx</DependentUpon>

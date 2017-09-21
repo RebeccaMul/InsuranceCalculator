@@ -63,12 +63,11 @@ namespace InsuranceProgram
             SqlConnection myConnection = new SqlConnection(connectionString);
 
             myConnection.Open();
-            //***********NEED TO FIND CLAIMS AND DELETE THEM FIRST
-            string query = "DELETE FROM Driver WHERE driverID=@driver; DELETE FROM Policy WHERE policyID=@rowid";
+            string query = "DELETE FROM Claim WHERE driverID=@driver; DELETE FROM Driver WHERE driverID=@driver; DELETE FROM Policy WHERE policyID=@policy";
 
             SqlCommand myCommand = new SqlCommand(query, myConnection);
 
-            myCommand.Parameters.AddWithValue("@rowid", row);
+            myCommand.Parameters.AddWithValue("@policy", row);
             myCommand.Parameters.AddWithValue("@driver", driver);
 
             myCommand.ExecuteNonQuery();
@@ -93,60 +92,54 @@ namespace InsuranceProgram
             {
                 moreDrivers.Visible = false;
                 driverbtn.Visible = false;
+                Decline.Visible = false;
             }
             else if (driverCheck.Checked == false)
             {
                 driverbtn.Visible = true;
+                Decline.Visible = false;
             }
         }
 
         //DRIVERNUMSCHANGE - show the appropriate number of entry textboxes based on user's dropdown selection:
         protected void driverNumsChange(object sender, EventArgs e)
         {
-            driverDetailLabel.Visible = false;
 
             if (driverNums.SelectedIndex == 1)
             {
-                driverDetailLabel.Visible = true;
-                //                claimDate.Visible = true;
+                newDriver2.Visible = true;
+                newDriver3.Visible = false;
+                newDriver4.Visible = false;
+                newDriver5.Visible = false;
 
             }
             else if (driverNums.SelectedIndex == 2)
             {
-                driverDetailLabel.Visible = true;
-                //                claimDate.Visible = true;
+                newDriver2.Visible = true;
+                newDriver3.Visible = true;
+                newDriver4.Visible = false;
+                newDriver5.Visible = false;
             }
             else if (driverNums.SelectedIndex == 3)
             {
-                driverDetailLabel.Visible = true;
-                //                claimDate.Visible = true;
+                newDriver2.Visible = true;
+                newDriver3.Visible = true;
+                newDriver4.Visible = true;
+                newDriver5.Visible = false;
             }
             else if (driverNums.SelectedIndex == 4)
             {
-                driverDetailLabel.Visible = true;
-                //                claimDate.Visible = true;
-            }
-            else if (driverNums.SelectedIndex == 5)
-            {
-                driverDetailLabel.Visible = true;
-                //                claimDate.Visible = true;
+                newDriver2.Visible = true;
+                newDriver3.Visible = true;
+                newDriver4.Visible = true;
+                newDriver5.Visible = true;
             }
         }
-
 
         //CHECKDRIVERS - Checks for the driver's details for approval, and either declines or submits:
         protected void checkDrivers(object sender, EventArgs e)
         {
-            /*     claimNums.DataBind(); fName.DataBind(); lName.DataBind(); occ.DataBind(); dobirth.DataBind();
-                 //Collecting input data:
-                 int numOfClaims = claimNums.SelectedIndex;
-                 String dFName = fName.Text;
-                 String dLName = lName.Text;
-                 String dOcc = occ.Text;
-                 DateTime dDob = Convert.ToDateTime(dobirth.Text);
-                 DateTime start = Convert.ToDateTime(chosenStart.Text);
-            */
-
+            //Getting policy and driver details
             int policy = int.Parse(Request.QueryString["policyID"]);
             int driver = int.Parse(Request.QueryString["driverID"]);
 
@@ -163,79 +156,412 @@ namespace InsuranceProgram
                 Response.Redirect("premiumCalculation.aspx?policyID=" + policy + "&driverID=" + driver);
             }
 
-            /*
-             * //check drivers ages, claim numbers total
-            //Drivers are present, performs quantity checks and if approved add driver details associated with policy:
-                 if (moreDrivers.Visible == true)
-                 {
-                     ////CLAIMS
-                     //Driver has over two claims, decline:
-                     if (claimNums.SelectedIndex > 2)
-                     {
-                         Decline.Visible = true;
-                         Decline.Text = "Declined - Driver has more than 2 claims: " + dFName + " " + dLName;
-                     }
-                     else if (claimNums.SelectedIndex <= 2)
-                     {
-                         //Driver has under two claims, progress method:
-                         Decline.Visible = false;
-
-                         //Performing age checks:
-                         int driverAge = calculateAge(start, dDob);
-                         if (driverAge < 21)
-                         {
-                             Decline.Text = "Declined - Age of youngest driver: " + dFName + " " + dLName;
-                             Decline.Visible = true;
-                         }
-                         else if (driverAge > 75)
-                         {
-                             Decline.Text = "Declined - Age of oldest driver: " + dFName + " " + dLName;
-                             Decline.Visible = true;
-                         }
-                         else if (driverAge > 21 && driverAge < 75)
-                         {
-                             Decline.Visible = false;
-                             int policy = int.Parse(Request.QueryString["policyID"]);
-
-                             //Acceptable age, adding driver to policy & database:
-                             string connectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-                             SqlConnection myConnection = new SqlConnection(connectionString);
-
-                             myConnection.Open();
-
-                             string sql = "INSERT INTO Driver (fName, lName, occupation, dateOfBirth, policyID) OUTPUT INSERTED.driverID VALUES (@fname, @lname, @occ, @dob, @pol)";
-                             SqlCommand cmd = new SqlCommand(sql, myConnection);
-                             //Parameterising value:
-                             cmd.Parameters.Add(new SqlParameter("@fname", dFName));
-                             cmd.Parameters.Add(new SqlParameter("@lname", dLName));
-                             cmd.Parameters.Add(new SqlParameter("@occ", dOcc));
-                             cmd.Parameters.Add(new SqlParameter("@dob", dDob));
-                             cmd.Parameters.Add(new SqlParameter("@pol", policy));
-                             int newDriverID = (int)cmd.ExecuteScalar();
-
-                             myConnection.Close();
-
-                             //Once driver is created, Counting the number of submitted claims to process:
-                             int claimTotal = 0;
-                             if (claimNums.SelectedIndex == 1)
-                             {
-                                 claimTotal = 1;
-                             }
-                             else if (claimNums.SelectedIndex == 2)
-                             {
-                                 claimTotal = 2;
-                             }
-
-                             //Running method to add relevant claims for this driver:
-                             addDriverClaims(claimTotal, newDriverID);
-
-                             //Once complete, move to Step three with the policy & driver IDs
-                             Response.Redirect("StepThree.aspx?policyID=" + policy + "&driverID=" + newDriverID);
-                         }
-                     }
-                 } */
+            //Additional drivers required, advance to adding them to policy:
+            if (driverCheck.Checked == false && moreDrivers.Visible == true)
+            {
+                //Adding relevant drivers if selected:
+                if (driverNums.SelectedIndex == 1)
+                {
+                    addDriver(1);
+                }
+                else if (driverNums.SelectedIndex == 2)
+                {
+                    addDriver(2);
+                }
+                else if (driverNums.SelectedIndex == 3)
+                {
+                    addDriver(3);
+                }
+                else if (driverNums.SelectedIndex == 4)
+                {
+                    addDriver(4);
+                }
+            }
         }
 
+        //addDriver - show second claim panel:
+        protected void addDriver(int drivernum)
+        {
+            //Getting policy start date:
+            DateTime start = Convert.ToDateTime(chosenStart.Text);
+            String primary = Request.QueryString["driverID"];
+
+            //Only add driver2:
+            if (drivernum == 1)
+            {
+                //Getting driver2 details:
+                String TwoFName = fName.Text;
+                String TwoLName = lName.Text;
+                String TwoOcc = occ.Text;
+                DateTime TwoDob = Convert.ToDateTime(dobirth.Text);
+
+                //Performing age checks:
+                int driverAge = calculateAge(start, TwoDob);
+                if (driverAge < 21)
+                {
+                    Decline.Text = "Declined - Age of youngest driver: " + TwoFName + " " + TwoLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge > 75)
+                {
+                    Decline.Text = "Declined - Age of oldest driver: " + TwoFName + " " + TwoLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge > 21 && driverAge < 75)
+                {
+                    Decline.Visible = false;
+                    int policy = int.Parse(Request.QueryString["policyID"]);
+
+                    //Acceptable age, adding driver to policy & database:
+                    string connectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    SqlConnection myConnection = new SqlConnection(connectionString);
+
+                    myConnection.Open();
+
+                    string sql = "INSERT INTO Driver (fName, lName, occupation, dateOfBirth, policyID) OUTPUT INSERTED.driverID VALUES (@fname, @lname, @occ, @dob, @pol)";
+                    SqlCommand cmd = new SqlCommand(sql, myConnection);
+                    //Parameterising value:
+                    cmd.Parameters.Add(new SqlParameter("@fname", TwoFName));
+                    cmd.Parameters.Add(new SqlParameter("@lname", TwoLName));
+                    cmd.Parameters.Add(new SqlParameter("@occ", TwoOcc));
+                    cmd.Parameters.Add(new SqlParameter("@dob", TwoDob));
+                    cmd.Parameters.Add(new SqlParameter("@pol", policy));
+                    int newDriverID = (int)cmd.ExecuteScalar();
+
+                    myConnection.Close();
+
+                    //Once driver is created, move to additional claim step:
+                    Response.Redirect("StepThreeClaim.aspx?policyID=" + policy + "&primary=" + primary + "&driverID=" + newDriverID);
+                }
+
+            }
+            else if (drivernum == 2)
+            {
+                //Getting driver2 + driver3 details:
+                String TwoFName = fName.Text; String ThreeFName = d3fname.Text;
+                String TwoLName = lName.Text; String ThreeLName = d3lname.Text;
+                String TwoOcc = occ.Text; String ThreeOcc = d3occ.Text;
+                DateTime TwoDob = Convert.ToDateTime(dobirth.Text); DateTime ThreeDob = Convert.ToDateTime(d3dob.Text);
+
+                //Performing age checks:
+                int driverAge2 = calculateAge(start, TwoDob);
+                int driverAge3 = calculateAge(start, ThreeDob);
+                if (driverAge2 < 21)
+                {
+                    Decline.Text = "Declined - Age of youngest driver: " + TwoFName + " " + TwoLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge3 < 21)
+                {
+                    Decline.Text = "Declined - Age of youngest driver: " + ThreeFName + " " + ThreeLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge2 > 75)
+                {
+                    Decline.Text = "Declined - Age of oldest driver: " + TwoFName + " " + TwoLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge3 > 75)
+                {
+                    Decline.Text = "Declined - Age of oldest driver: " + ThreeFName + " " + ThreeLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge2 > 21 && driverAge2 < 75 && driverAge3 > 21 && driverAge3 < 75)
+                {
+                    Decline.Visible = false;
+                    int policy = int.Parse(Request.QueryString["policyID"]);
+
+                    //Acceptable age, adding driver to policy & database:
+                    string connectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    SqlConnection myConnection = new SqlConnection(connectionString);
+
+                    myConnection.Open();
+
+                    string sql = "INSERT INTO Driver (fName, lName, occupation, dateOfBirth, policyID) OUTPUT INSERTED.driverID VALUES (@fname, @lname, @occ, @dob, @pol);";
+                    SqlCommand cmd = new SqlCommand(sql, myConnection);
+                    //Parameterising value:
+                    cmd.Parameters.Add(new SqlParameter("@fname", TwoFName));
+                    cmd.Parameters.Add(new SqlParameter("@lname", TwoLName));
+                    cmd.Parameters.Add(new SqlParameter("@occ", TwoOcc));
+                    cmd.Parameters.Add(new SqlParameter("@dob", TwoDob));
+                    cmd.Parameters.Add(new SqlParameter("@pol", policy));
+                    int newDriver2 = (int)cmd.ExecuteScalar();
+
+                    myConnection.Close();
+
+                    //Add driver3:
+                    string connectionString2 = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    SqlConnection myConnection2 = new SqlConnection(connectionString2);
+
+                    myConnection2.Open();
+
+                    string sql2 = "INSERT INTO Driver (fName, lName, occupation, dateOfBirth, policyID) OUTPUT INSERTED.driverID VALUES (@fname, @lname, @occ, @dob, @pol)";
+                    SqlCommand cmd2 = new SqlCommand(sql2, myConnection2);
+                    //Parameterising value:
+                    cmd2.Parameters.Add(new SqlParameter("@fname", ThreeFName));
+                    cmd2.Parameters.Add(new SqlParameter("@lname", ThreeLName));
+                    cmd2.Parameters.Add(new SqlParameter("@occ", ThreeOcc));
+                    cmd2.Parameters.Add(new SqlParameter("@dob", ThreeDob));
+                    cmd2.Parameters.Add(new SqlParameter("@pol", policy));
+                    int newDriver3 = (int)cmd2.ExecuteScalar();
+
+                    myConnection2.Close();
+
+                    //Once driver is created, move to additional claim step:
+                    Response.Redirect("StepThreeClaim.aspx?policyID=" + policy + "&primary=" + primary + "&driver2=" + newDriver2 + "&driver3=" + newDriver3);
+                }
+
+            }
+            else if (drivernum == 3)
+            {
+                //Getting driver2-4 details:
+                String TwoFName = fName.Text; String ThreeFName = d3fname.Text; String FourFName = d4fname.Text;
+                String TwoLName = lName.Text; String ThreeLName = d3lname.Text; String FourLName = d4lname.Text;
+                String TwoOcc = occ.Text; String ThreeOcc = d3occ.Text; String FourOcc = d4occ.Text;
+                DateTime TwoDob = Convert.ToDateTime(dobirth.Text); DateTime ThreeDob = Convert.ToDateTime(d3dob.Text); DateTime FourDob = Convert.ToDateTime(d4dob.Text);
+
+                //Performing age checks:
+                int driverAge2 = calculateAge(start, TwoDob);
+                int driverAge3 = calculateAge(start, ThreeDob);
+                int driverAge4 = calculateAge(start, FourDob);
+                if (driverAge2 < 21)
+                {
+                    Decline.Text = "Declined - Age of youngest driver: " + TwoFName + " " + TwoLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge3 < 21)
+                {
+                    Decline.Text = "Declined - Age of youngest driver: " + ThreeFName + " " + ThreeLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge4 < 21)
+                {
+                    Decline.Text = "Declined - Age of youngest driver: " + FourFName + " " + FourLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge2 > 75)
+                {
+                    Decline.Text = "Declined - Age of oldest driver: " + TwoFName + " " + TwoLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge3 > 75)
+                {
+                    Decline.Text = "Declined - Age of oldest driver: " + ThreeFName + " " + ThreeLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge4 > 75)
+                {
+                    Decline.Text = "Declined - Age of oldest driver: " + FourFName + " " + FourLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge2 > 21 && driverAge2 < 75 && driverAge3 > 21 && driverAge3 < 75 && driverAge4 > 21 && driverAge4 < 75)
+                {
+                    Decline.Visible = false;
+                    int policy = int.Parse(Request.QueryString["policyID"]);
+
+                    //Acceptable age, adding driver to policy & database:
+                    string connectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    SqlConnection myConnection = new SqlConnection(connectionString);
+
+                    myConnection.Open();
+
+                    string sql = "INSERT INTO Driver (fName, lName, occupation, dateOfBirth, policyID) OUTPUT INSERTED.driverID VALUES (@fname, @lname, @occ, @dob, @pol);";
+                    SqlCommand cmd = new SqlCommand(sql, myConnection);
+                    //Parameterising value:
+                    cmd.Parameters.Add(new SqlParameter("@fname", TwoFName));
+                    cmd.Parameters.Add(new SqlParameter("@lname", TwoLName));
+                    cmd.Parameters.Add(new SqlParameter("@occ", TwoOcc));
+                    cmd.Parameters.Add(new SqlParameter("@dob", TwoDob));
+                    cmd.Parameters.Add(new SqlParameter("@pol", policy));
+                    int newDriver2 = (int)cmd.ExecuteScalar();
+
+                    myConnection.Close();
+
+                    //Add driver3:
+                    string connectionString2 = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    SqlConnection myConnection2 = new SqlConnection(connectionString2);
+
+                    myConnection2.Open();
+
+                    string sql2 = "INSERT INTO Driver (fName, lName, occupation, dateOfBirth, policyID) OUTPUT INSERTED.driverID VALUES (@fname, @lname, @occ, @dob, @pol)";
+                    SqlCommand cmd2 = new SqlCommand(sql2, myConnection2);
+                    //Parameterising value:
+                    cmd2.Parameters.Add(new SqlParameter("@fname", ThreeFName));
+                    cmd2.Parameters.Add(new SqlParameter("@lname", ThreeLName));
+                    cmd2.Parameters.Add(new SqlParameter("@occ", ThreeOcc));
+                    cmd2.Parameters.Add(new SqlParameter("@dob", ThreeDob));
+                    cmd2.Parameters.Add(new SqlParameter("@pol", policy));
+                    int newDriver3 = (int)cmd2.ExecuteScalar();
+
+                    myConnection2.Close();
+
+                    //Add driver 4:
+                    string connectionString3 = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    SqlConnection myConnection3 = new SqlConnection(connectionString3);
+
+                    myConnection3.Open();
+
+                    string sql3 = "INSERT INTO Driver (fName, lName, occupation, dateOfBirth, policyID) OUTPUT INSERTED.driverID VALUES (@fname, @lname, @occ, @dob, @pol)";
+                    SqlCommand cmd3 = new SqlCommand(sql3, myConnection3);
+                    //Parameterising value:
+                    cmd3.Parameters.Add(new SqlParameter("@fname", ThreeFName));
+                    cmd3.Parameters.Add(new SqlParameter("@lname", ThreeLName));
+                    cmd3.Parameters.Add(new SqlParameter("@occ", ThreeOcc));
+                    cmd3.Parameters.Add(new SqlParameter("@dob", ThreeDob));
+                    cmd3.Parameters.Add(new SqlParameter("@pol", policy));
+                    int newDriver4 = (int)cmd3.ExecuteScalar();
+
+                    myConnection3.Close();
+
+                    //Once driver is created, move to additional claim step:
+                    Response.Redirect("StepThreeClaim.aspx?policyID=" + policy + "&primary=" + primary + "&driver2=" + newDriver2 + "&driver3=" + newDriver3 + "&driver4=" + newDriver4);
+                }
+            }
+            else if (drivernum == 4)
+            {
+                //Getting driver2-5 details:
+                String TwoFName = fName.Text; String ThreeFName = d3fname.Text; String FourFName = d4fname.Text; String FiveFName = d5fname.Text;
+                String TwoLName = lName.Text; String ThreeLName = d3lname.Text; String FourLName = d4lname.Text; String FiveLName = d5lname.Text;
+                String TwoOcc = occ.Text; String ThreeOcc = d3occ.Text; String FourOcc = d4occ.Text; String FiveOcc = d5occ.Text;
+                DateTime TwoDob = Convert.ToDateTime(dobirth.Text); DateTime ThreeDob = Convert.ToDateTime(d3dob.Text); DateTime FourDob = Convert.ToDateTime(d4dob.Text); DateTime FiveDob = Convert.ToDateTime(d5dob.Text);
+
+                //Performing age checks:
+                int driverAge2 = calculateAge(start, TwoDob);
+                int driverAge3 = calculateAge(start, ThreeDob);
+                int driverAge4 = calculateAge(start, FourDob);
+                int driverAge5 = calculateAge(start, FiveDob);
+                if (driverAge2 < 21)
+                {
+                    Decline.Text = "Declined - Age of youngest driver: " + TwoFName + " " + TwoLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge3 < 21)
+                {
+                    Decline.Text = "Declined - Age of youngest driver: " + ThreeFName + " " + ThreeLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge4 < 21)
+                {
+                    Decline.Text = "Declined - Age of youngest driver: " + FourFName + " " + FourLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge5 < 21)
+                {
+                    Decline.Text = "Declined - Age of youngest driver: " + FiveFName + " " + FiveLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge2 > 75)
+                {
+                    Decline.Text = "Declined - Age of oldest driver: " + TwoFName + " " + TwoLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge3 > 75)
+                {
+                    Decline.Text = "Declined - Age of oldest driver: " + ThreeFName + " " + ThreeLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge4 > 75)
+                {
+                    Decline.Text = "Declined - Age of oldest driver: " + FourFName + " " + FourLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge5 > 75)
+                {
+                    Decline.Text = "Declined - Age of oldest driver: " + FiveFName + " " + FiveLName;
+                    Decline.Visible = true;
+                }
+                else if (driverAge2 > 21 && driverAge2 < 75 && driverAge3 > 21 && driverAge3 < 75 && driverAge4 > 21 && driverAge4 < 75 && driverAge5 > 21 && driverAge5 < 75)
+                {
+                    Decline.Visible = false;
+                    int policy = int.Parse(Request.QueryString["policyID"]);
+
+                    //Acceptable age, adding driver to policy & database:
+                    string connectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    SqlConnection myConnection = new SqlConnection(connectionString);
+
+                    myConnection.Open();
+
+                    string sql = "INSERT INTO Driver (fName, lName, occupation, dateOfBirth, policyID) OUTPUT INSERTED.driverID VALUES (@fname, @lname, @occ, @dob, @pol);";
+                    SqlCommand cmd = new SqlCommand(sql, myConnection);
+                    //Parameterising value:
+                    cmd.Parameters.Add(new SqlParameter("@fname", TwoFName));
+                    cmd.Parameters.Add(new SqlParameter("@lname", TwoLName));
+                    cmd.Parameters.Add(new SqlParameter("@occ", TwoOcc));
+                    cmd.Parameters.Add(new SqlParameter("@dob", TwoDob));
+                    cmd.Parameters.Add(new SqlParameter("@pol", policy));
+                    int newDriver2 = (int)cmd.ExecuteScalar();
+
+                    myConnection.Close();
+
+                    //Add driver3:
+                    string connectionString2 = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    SqlConnection myConnection2 = new SqlConnection(connectionString2);
+
+                    myConnection2.Open();
+
+                    string sql2 = "INSERT INTO Driver (fName, lName, occupation, dateOfBirth, policyID) OUTPUT INSERTED.driverID VALUES (@fname, @lname, @occ, @dob, @pol)";
+                    SqlCommand cmd2 = new SqlCommand(sql2, myConnection2);
+                    //Parameterising value:
+                    cmd2.Parameters.Add(new SqlParameter("@fname", ThreeFName));
+                    cmd2.Parameters.Add(new SqlParameter("@lname", ThreeLName));
+                    cmd2.Parameters.Add(new SqlParameter("@occ", ThreeOcc));
+                    cmd2.Parameters.Add(new SqlParameter("@dob", ThreeDob));
+                    cmd2.Parameters.Add(new SqlParameter("@pol", policy));
+                    int newDriver3 = (int)cmd2.ExecuteScalar();
+
+                    myConnection2.Close();
+
+                    //Add driver 4:
+                    string connectionString3 = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    SqlConnection myConnection3 = new SqlConnection(connectionString3);
+
+                    myConnection3.Open();
+
+                    string sql3 = "INSERT INTO Driver (fName, lName, occupation, dateOfBirth, policyID) OUTPUT INSERTED.driverID VALUES (@fname, @lname, @occ, @dob, @pol)";
+                    SqlCommand cmd3 = new SqlCommand(sql3, myConnection3);
+                    //Parameterising value:
+                    cmd3.Parameters.Add(new SqlParameter("@fname", ThreeFName));
+                    cmd3.Parameters.Add(new SqlParameter("@lname", ThreeLName));
+                    cmd3.Parameters.Add(new SqlParameter("@occ", ThreeOcc));
+                    cmd3.Parameters.Add(new SqlParameter("@dob", ThreeDob));
+                    cmd3.Parameters.Add(new SqlParameter("@pol", policy));
+                    int newDriver4 = (int)cmd3.ExecuteScalar();
+
+                    myConnection3.Close();
+
+                    //add driver 5:
+                    string connectionString4 = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    SqlConnection myConnection4 = new SqlConnection(connectionString4);
+
+                    myConnection4.Open();
+
+                    string sql4 = "INSERT INTO Driver (fName, lName, occupation, dateOfBirth, policyID) OUTPUT INSERTED.driverID VALUES (@fname, @lname, @occ, @dob, @pol)";
+                    SqlCommand cmd4 = new SqlCommand(sql4, myConnection4);
+                    //Parameterising value:
+                    cmd4.Parameters.Add(new SqlParameter("@fname", ThreeFName));
+                    cmd4.Parameters.Add(new SqlParameter("@lname", ThreeLName));
+                    cmd4.Parameters.Add(new SqlParameter("@occ", ThreeOcc));
+                    cmd4.Parameters.Add(new SqlParameter("@dob", ThreeDob));
+                    cmd4.Parameters.Add(new SqlParameter("@pol", policy));
+                    int newDriver5 = (int)cmd4.ExecuteScalar();
+
+                    myConnection4.Close();
+
+                    //Once driver is created, move to additional claim step:
+                    Response.Redirect("StepThreeClaim.aspx?policyID=" + policy + "&primary=" + primary + "&driver2=" + newDriver2 + "&driver3=" + newDriver3 + "&driver4=" + newDriver4 + "&driver5=" + newDriver5);
+                }
+            }
+        }
+
+        //CALCULATEAGE - takes today's date and date of birth to calculate and return current age in years.
+        public static int calculateAge(DateTime sDate, DateTime birthdate)
+        {
+            int age = sDate.Year - birthdate.Year;
+            if (sDate < birthdate.AddYears(age))
+                age--;
+
+            return age;
+        }
 
     }
 }

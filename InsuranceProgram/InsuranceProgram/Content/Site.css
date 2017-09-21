@@ -76,10 +76,37 @@
     
 }
 
+.col3 {
+    color:cadetblue;
+    margin-right:5%;
+    float:right;
+    background-color:white; 
+    border-color: #5cb85c;
+    border-width:medium;
+    border-radius:5px 5px 5px 5px;
+    padding:5px 5px 5px 5px;
+    align-content:center;
+    max-width:150px;
+    min-width:10%;
+    text-align:center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    font-family:Calibri;
+    display:inline-block;
+    
+}
+
 
 .input {
     border-radius:5px 5px 5px 5px;
     margin:5px 2px 12px 10px;
+}
+
+.additonalinput {
+    border-radius:5px 5px 5px 5px;
+    margin: 0px 0px 0px 0px;
+    max-width:100%;
+    min-width:85%;
+    align-content:center;
 }
 
 .labels {
@@ -175,6 +202,19 @@ h1 {
     margin: 0% 35% 1% 35%;
     min-width:130px;
     width:130px;
+}
+
+.additionalclaim {
+    border-radius: 8px;
+    background-color: lightgray;
+    border: none;
+    color: black;
+    padding: 8px 8px;
+    text-align: center;
+    font-size: 14px;
+    min-width:130px;
+    width:130px;
+    margin: 0% 10% 1% 10%;
 }
 
 .claimpanelbtns  {
