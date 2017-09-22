@@ -14,9 +14,10 @@ namespace InsuranceProgram
     public partial class premiumCalculation : System.Web.UI.Page
     {
         //Premium intial cost, and calculating percentage charges:
+        private static double basePremium = 500.00;
         private static double premiumCost = 500.00;
-        private static double ten = (premiumCost / 100) * 10;
-        private static double twenty = (premiumCost / 100) * 20;
+        private static double ten = (basePremium / 100) * 10;
+        private static double twenty = (basePremium / 100) * 20;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -148,7 +149,7 @@ namespace InsuranceProgram
                 myConnection2.Close();
                 //End SQLs
 
-                cost.Text = premiumCost.ToString();
+                cost.Text = basePremium.ToString();
             }
 
         }
@@ -182,38 +183,61 @@ namespace InsuranceProgram
             if (checkAge(yAge) == 10)
             {
                 //Get current premium:
-                premiumCost = Convert.ToDouble(cost.Text);
+             //   cost.DataBind();
+             //   premiumCost = Convert.ToDouble(cost.Text);
                 //Add 10%:
-                double newpremium = premiumCost + ten;
+                double newpremium = 500 + ten;
                 //update total:
                 cost.Text = newpremium.ToString();
+
+                //Saving new price to variable
+                premiumCost = Convert.ToDouble(cost.Text);
+
             }
-            if (checkAge(yAge) == 20)
+            else if (checkAge(yAge) == 20)
             {
                 //Get current premium:
-                premiumCost = Convert.ToDouble(cost.Text);
+            //    cost.DataBind();
+            //    premiumCost = Convert.ToDouble(cost.Text);
                 //Add 20%:
-                double newpremium = premiumCost + twenty;
+                double newpremium = 500 + twenty;
                 //update total:
                 cost.Text = newpremium.ToString();
+
+                //Saving new price to variable
+                premiumCost = Convert.ToDouble(cost.Text);
+            }
+
+            if (checkAge(yAge) == 0)
+            {
+                //No age charges, keep premium at base:
+                double newpremium = 500;
+                cost.Text = newpremium.ToString();
+
+                //Saving new price to variable
+                premiumCost = Convert.ToDouble(cost.Text);
+
             }
 
             claimTiming();
         }
 
+    /* PLEASE NOTE: Code breaks here as charges do not apply (claimTimeCheck method is always returning an increase of 0, despite the if statement logic or any date which is input.) As a result, addClaimCharge method never receives a charge to apply, and premiumCost does not update no matter when the claim is. */
+
         //CLAIMTIMING - Checking if claim dates added to policy are within 5 years (using claimTimeCheck method). If so, add the relevant charge:
         protected void claimTiming()
         {
+
+            // Commented out, to skip on to Driver Occupation rules methods (checkPrimaryOcc, checkChauffeur, checkAccountant)
+/*
+
             //Getting claim dates by splitting string into an array:
             DateTime start = Convert.ToDateTime(chosenStart.Text);
             String Dates = claimDates.Text;
             string[] s = Dates.Split(',');
             int count = s.Length;
-
-            /* PLEASE NOTE: Code breaks here as charges do not apply (claimTimeCheck method is always returning an increase of 0, despite the if statement logic or any date which is input.) As a result, addClaimCharge method never receives a charge to apply, and premiumCost does not update no matter when the claim is.
-             * Commented out, to skip on to Driver Occupation rules methods (checkPrimaryOcc, checkChauffeur, checkAccountant)
              
-/*            if (count == 2)
+            if (count == 2)
             {
                 claim1.Text = s[0];
                 claim2.Text = s[1];
@@ -238,11 +262,13 @@ namespace InsuranceProgram
                // addClaimCharge(current2);
                // addClaimCharge(current3);
 
-//                claim3.Text = "This is the one running";
             }
- * */
-            //skipping claim charges temporarily, and moving to occupation charges:
-            checkPrimaryOcc();
+ */
+
+         //   checkPrimaryOcc();
+
+            //Skipping claim charges (bug), and occupation charges (incomplete) and submitting with age charges (which work successfully):
+           submitResult();
         }
 
         //CLAIMTIMECHECK - If claim has been made within last five years, add a premium charge of 10/20 percent:
@@ -286,6 +312,7 @@ namespace InsuranceProgram
             if (charge == 10)
             {
                 //Get current premium:
+                cost.DataBind();
                 premiumCost = Convert.ToDouble(cost.Text);
                 //Add 10%:
                 double newpremium = premiumCost + ten;
@@ -295,6 +322,7 @@ namespace InsuranceProgram
             if (charge == 20)
             {
                 //Get current premium:
+                cost.DataBind();
                 premiumCost = Convert.ToDouble(cost.Text);
                 //Add 20%:
                 double newpremium = premiumCost + twenty;
@@ -318,21 +346,28 @@ namespace InsuranceProgram
             {
                 //Add a 10% charge if a Chauffeur:
                 //Get current premium:
-                premiumCost = Convert.ToDouble(cost.Text);
+//                cost.DataBind();
+//                premiumCost = Convert.ToDouble(cost.Text);
                 double newpremium = premiumCost + ten;
                 //update total:
                 cost.Text = newpremium.ToString();
             }
-            if (checkAccountant(occ) == true)
+            else if (checkAccountant(occ) == true)
             {
                 //Remove 10% if an accountant:
                 //Get current premium:
-                premiumCost = Convert.ToDouble(cost.Text);
+ //               cost.DataBind();
+ //               premiumCost = Convert.ToDouble(cost.Text);
                 //Add 10%:
                 double newpremium = premiumCost - ten;
                 //update total:
                 cost.Text = newpremium.ToString();
 
+            }
+
+            if (checkAccountant(occ) == false & checkChauffeur(occ) == false)
+            {
+                //No changes
             }
 
             //Missing additional driver occupation checks, but redirect to result for UI purposes:
@@ -405,7 +440,7 @@ namespace InsuranceProgram
             }
             else
             {
-                increase = true;
+                increase = false;
             }
 
             return increase;
