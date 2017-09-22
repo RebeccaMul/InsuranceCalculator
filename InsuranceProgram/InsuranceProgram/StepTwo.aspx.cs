@@ -211,6 +211,7 @@ namespace InsuranceProgram
         //ADDDRIVERCLAIMS - Takes the number of claims input along with driverID, and adds the claims for this driver to the database
         public void addDriverClaims(int claimNumber, int Driver)
         {
+            int policy = int.Parse(Request.QueryString["policyID"]);
             //Only adding one/first claim:
             if (claimNumber == 1)
             {
@@ -223,11 +224,12 @@ namespace InsuranceProgram
 
                 myConnection.Open();
 
-                string sql = "INSERT INTO Claim (cDate, driverID) OUTPUT INSERTED.claimID VALUES (@date, @driver)";
+                string sql = "INSERT INTO Claim (cDate, driverID, policyID) OUTPUT INSERTED.claimID VALUES (@date, @driver, @policy)";
                 SqlCommand cmd = new SqlCommand(sql, myConnection);
                 
                 cmd.Parameters.Add(new SqlParameter("@date", first));
                 cmd.Parameters.Add(new SqlParameter("@driver", Driver));
+                cmd.Parameters.Add(new SqlParameter("@policy", policy));
                 cmd.ExecuteNonQuery();
 
                 myConnection.Close();
@@ -245,12 +247,13 @@ namespace InsuranceProgram
 
                 myConnection.Open();
 
-                string sql = "INSERT INTO Claim (cDate, driverID) OUTPUT INSERTED.claimID VALUES (@date, @driver); INSERT INTO Claim (cDate, driverID) OUTPUT INSERTED.claimID VALUES (@date2, @driver);";
+                string sql = "INSERT INTO Claim (cDate, driverID, policyID) OUTPUT INSERTED.claimID VALUES (@date, @driver, @policy); INSERT INTO Claim (cDate, driverID, policyID) OUTPUT INSERTED.claimID VALUES (@date2, @driver, @policy);";
                 SqlCommand cmd = new SqlCommand(sql, myConnection);
                 
                 cmd.Parameters.Add(new SqlParameter("@date", first));
                 cmd.Parameters.Add(new SqlParameter("@date2", second));
                 cmd.Parameters.Add(new SqlParameter("@driver", Driver));
+                cmd.Parameters.Add(new SqlParameter("@policy", policy));
                 cmd.ExecuteNonQuery();
 
                 myConnection.Close();

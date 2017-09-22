@@ -73,7 +73,9 @@
                     <div id="twoClaims" runat="server">
                         Previous claims:<br />
                         <asp:TextBox ID="twoclaim1" runat="server" CssClass="additonalinput" Placeholder="dd/mm/yyyy" ValidationGroup="detailsCheck" />
+                         <asp:RangeValidator ID="DateValidator" runat="server" ErrorMessage="Please enter a valid date" ControlToValidate="twoclaim1" Type="Date" MinimumValue="1/1/1900" MaximumValue="1/1/9000" ForeColor="Red"/>
                         <asp:TextBox ID="twoclaim2" runat="server" CssClass="additonalinput" Placeholder="dd/mm/yyyy" ValidationGroup="detailsCheck"/>
+                         <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Please enter a valid date" ControlToValidate="twoclaim2" Type="Date" MinimumValue="1/1/1900" MaximumValue="1/1/9000" ForeColor="Red"/>
                     </div>
                 </div>
                 <%-- End second driver div --%>
@@ -89,7 +91,9 @@
                     <div id="threeClaims" runat="server">
                         Previous claims:<br />
                         <asp:TextBox ID="threeclaim1" runat="server" CssClass="additonalinput" Placeholder="dd/mm/yyyy" ValidationGroup="detailsCheck" />
+                         <asp:RangeValidator ID="RangeValidator2" runat="server" ErrorMessage="Please enter a valid date" ControlToValidate="threeclaim1" Type="Date" MinimumValue="1/1/1900" MaximumValue="1/1/9000" ForeColor="Red"/>
                         <asp:TextBox ID="threeclaim2" runat="server" CssClass="additonalinput" Placeholder="dd/mm/yyyy" ValidationGroup="detailsCheck" />
+                         <asp:RangeValidator ID="RangeValidator3" runat="server" ErrorMessage="Please enter a valid date" ControlToValidate="threeclaim2" Type="Date" MinimumValue="1/1/1900" MaximumValue="1/1/9000" ForeColor="Red"/>
                     </div>
                 </div>
                 <%-- End third driver div --%>
@@ -105,7 +109,9 @@
                     <div id="fourClaims" runat="server">
                         Previous claims:<br />
                         <asp:TextBox ID="fourclaim1" runat="server" CssClass="additonalinput" Placeholder="dd/mm/yyyy" ValidationGroup="detailsCheck" />
+                         <asp:RangeValidator ID="RangeValidator4" runat="server" ErrorMessage="Please enter a valid date" ControlToValidate="fourclaim1" Type="Date" MinimumValue="1/1/1900" MaximumValue="1/1/9000" ForeColor="Red"/>
                         <asp:TextBox ID="fourclaim2" runat="server" CssClass="additonalinput" Placeholder="dd/mm/yyyy" ValidationGroup="detailsCheck" />
+                         <asp:RangeValidator ID="RangeValidator5" runat="server" ErrorMessage="Please enter a valid date" ControlToValidate="fourclaim2" Type="Date" MinimumValue="1/1/1900" MaximumValue="1/1/9000" ForeColor="Red"/>
                     </div>
                 </div>
                 <%-- End fourth driver div --%>
@@ -121,7 +127,9 @@
                     <div id="fiveClaims" runat="server">
                         Previous claims:<br />
                         <asp:TextBox ID="fiveclaim1" runat="server" CssClass="additonalinput" Placeholder="dd/mm/yyyy" ValidationGroup="detailsCheck" />
+                         <asp:RangeValidator ID="RangeValidator6" runat="server" ErrorMessage="Please enter a valid date" ControlToValidate="fiveclaim1" Type="Date" MinimumValue="1/1/1900" MaximumValue="1/1/9000" ForeColor="Red"/>
                         <asp:TextBox ID="fiveclaim2" runat="server" CssClass="additonalinput" Placeholder="dd/mm/yyyy" ValidationGroup="detailsCheck" />
+                         <asp:RangeValidator ID="RangeValidator7" runat="server" ErrorMessage="Please enter a valid date" ControlToValidate="fiveclaim2" Type="Date" MinimumValue="1/1/1900" MaximumValue="1/1/9000" ForeColor="Red"/>
                     </div>
                 </div>
                 <%-- End fifth driver div --%>

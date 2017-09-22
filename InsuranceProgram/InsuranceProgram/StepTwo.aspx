@@ -131,15 +131,15 @@
         <%-- End Central Div --%>
 
                 <%-- Previous approved details column: --%>
+          <%-- Previous approved details column: --%>
         <div class="col1">
-            <asp:Label ID="CurrentLabel" runat="server" Text="Current policy details:" CssClass="instruction" />
-            <br />
+            <asp:Label ID="CurrentLabel" runat="server" Text="Current policy details:" CssClass="instruction" /><br />
             Chosen Start Date:
-            <asp:Label ID="chosenStart" runat="server" Style="color: black" /><br />
+            <asp:Label ID="chosenStart" runat="server" CssClass="savedDetails" /><br />
             <br />
             <asp:Button runat="server" CssClass="cancelbtn" Text="Cancel" OnClick="Cancel" />
-
         </div>
+
 
 
     </form>

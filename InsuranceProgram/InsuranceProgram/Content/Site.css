@@ -134,6 +134,13 @@ h1 {
     color:cadetblue;
 }
 
+.loading {
+    font-size:x-large;
+    font-family:Calibri;
+    color:cadetblue;
+}
+
+
 .decline {
     font-family:Calibri;
     color:red;

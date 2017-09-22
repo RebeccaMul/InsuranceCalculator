@@ -90,7 +90,7 @@ namespace InsuranceProgram
             SqlConnection myConnection = new SqlConnection(connectionString);
 
             myConnection.Open();
-            string query = "DELETE FROM Claim WHERE driverID=@driver; DELETE FROM Driver WHERE driverID=@driver; DELETE FROM Policy WHERE policyID=@policy";
+            string query = "DELETE FROM Claim WHERE policyID=@policy; DELETE FROM Driver WHERE policyID=@policy; DELETE FROM Policy WHERE policyID=@policy";
 
             SqlCommand myCommand = new SqlCommand(query, myConnection);
 
@@ -165,17 +165,18 @@ namespace InsuranceProgram
         {
             String policy = Request.QueryString["policyID"];
             String primary = Request.QueryString["primary"];
+            String start = chosenStart.Text;
 
             //No claims added, just redirect:
             if (moreClaims.Visible == false)
             {
-                Response.Redirect("premiumCalculation.aspx?policyID=" + policy + "&primary=" + primary);
+                Response.Redirect("premiumCalculation.aspx?policyID=" + policy + "&primary=" + primary + "&start=" + start);
             }
 
             //All drivers confirmed no claims, just redirect:
             if (claimCheck2.Checked == true && claimCheck3.Checked == true && claimCheck4.Checked == true && claimCheck5.Checked == true)
             {
-                Response.Redirect("premiumCalculation.aspx?policyID=" + policy + "&primary=" + primary);
+                Response.Redirect("premiumCalculation.aspx?policyID=" + policy + "&primary=" + primary + "&start=" + start);
             }
 
             //Adding claims according to entries:
@@ -191,10 +192,11 @@ namespace InsuranceProgram
                 int driverID = int.Parse(Request.QueryString["driver2"]);
                 DateTime claim1 = Convert.ToDateTime(twoclaim1.Text);
 
-                string sql = "INSERT INTO Claim (cDate, driverID) VALUES (@date, @driver)";
+                string sql = "INSERT INTO Claim (cDate, driverID, policyID) VALUES (@date, @driver, @policy)";
                 SqlCommand cmd = new SqlCommand(sql, myConnection);
                 cmd.Parameters.Add(new SqlParameter("@date", claim1));
                 cmd.Parameters.Add(new SqlParameter("@driver", driverID));
+                cmd.Parameters.Add(new SqlParameter("@policy", policy));
                 cmd.ExecuteNonQuery();
             }
             if (!String.IsNullOrEmpty(twoclaim2.Text) != null && claimCheck2.Checked == false)
@@ -202,10 +204,11 @@ namespace InsuranceProgram
                 int driverID = int.Parse(Request.QueryString["driver2"]);
                 DateTime claim2 = Convert.ToDateTime(twoclaim2.Text);
 
-                string sql = "INSERT INTO Claim (cDate, driverID) VALUES (@date, @driver)";
+                string sql = "INSERT INTO Claim (cDate, driverID, policyID) VALUES (@date, @driver, @policy)";
                 SqlCommand cmd = new SqlCommand(sql, myConnection);
                 cmd.Parameters.Add(new SqlParameter("@date", claim2));
                 cmd.Parameters.Add(new SqlParameter("@driver", driverID));
+                cmd.Parameters.Add(new SqlParameter("@policy", policy));
                 cmd.ExecuteNonQuery();
             }
             if (!String.IsNullOrEmpty(threeclaim1.Text) && claimCheck3.Checked == false)
@@ -213,10 +216,11 @@ namespace InsuranceProgram
                 int driverID = int.Parse(Request.QueryString["driver3"]);
                 DateTime claim3 = Convert.ToDateTime(threeclaim1.Text);
 
-                string sql = "INSERT INTO Claim (cDate, driverID) VALUES (@date, @driver)";
+                string sql = "INSERT INTO Claim (cDate, driverID, policyID) VALUES (@date, @driver, @policy)";
                 SqlCommand cmd = new SqlCommand(sql, myConnection);
                 cmd.Parameters.Add(new SqlParameter("@date", claim3));
                 cmd.Parameters.Add(new SqlParameter("@driver", driverID));
+                cmd.Parameters.Add(new SqlParameter("@policy", policy));
                 cmd.ExecuteNonQuery();
             }
             if (!String.IsNullOrEmpty(threeclaim2.Text) && claimCheck3.Checked == false)
@@ -224,10 +228,11 @@ namespace InsuranceProgram
                 int driverID = int.Parse(Request.QueryString["driver3"]);
                 DateTime claim4 = Convert.ToDateTime(threeclaim2.Text);
 
-                string sql = "INSERT INTO Claim (cDate, driverID) VALUES (@date, @driver)";
+                string sql = "INSERT INTO Claim (cDate, driverID, policyID) VALUES (@date, @driver, @policy)";
                 SqlCommand cmd = new SqlCommand(sql, myConnection);
                 cmd.Parameters.Add(new SqlParameter("@date", claim4));
                 cmd.Parameters.Add(new SqlParameter("@driver", driverID));
+                cmd.Parameters.Add(new SqlParameter("@policy", policy));
                 cmd.ExecuteNonQuery();
             }
             if (!String.IsNullOrEmpty(fourclaim1.Text) && claimCheck4.Checked == false)
@@ -235,10 +240,11 @@ namespace InsuranceProgram
                 int driverID = int.Parse(Request.QueryString["driver4"]);
                 DateTime claim5 = Convert.ToDateTime(fourclaim1.Text);
 
-                string sql = "INSERT INTO Claim (cDate, driverID) VALUES (@date, @driver)";
+                string sql = "INSERT INTO Claim (cDate, driverID, policyID) VALUES (@date, @driver, @policy)";
                 SqlCommand cmd = new SqlCommand(sql, myConnection);
                 cmd.Parameters.Add(new SqlParameter("@date", claim5));
                 cmd.Parameters.Add(new SqlParameter("@driver", driverID));
+                cmd.Parameters.Add(new SqlParameter("@policy", policy));
                 cmd.ExecuteNonQuery();
             }
             if (!String.IsNullOrEmpty(fourclaim2.Text) && claimCheck4.Checked == false)
@@ -246,10 +252,11 @@ namespace InsuranceProgram
                 int driverID = int.Parse(Request.QueryString["driver4"]);
                 DateTime claim6 = Convert.ToDateTime(fourclaim2.Text);
 
-                string sql = "INSERT INTO Claim (cDate, driverID) VALUES (@date, @driver)";
+                string sql = "INSERT INTO Claim (cDate, driverID, policyID) VALUES (@date, @driver, @policy)";
                 SqlCommand cmd = new SqlCommand(sql, myConnection);
                 cmd.Parameters.Add(new SqlParameter("@date", claim6));
                 cmd.Parameters.Add(new SqlParameter("@driver", driverID));
+                cmd.Parameters.Add(new SqlParameter("@policy", policy));
                 cmd.ExecuteNonQuery();
             }
             if (!String.IsNullOrEmpty(fiveclaim1.Text) && claimCheck5.Checked == false)
@@ -257,10 +264,11 @@ namespace InsuranceProgram
                 int driverID = int.Parse(Request.QueryString["driver5"]);
                 DateTime claim7 = Convert.ToDateTime(fiveclaim1.Text);
 
-                string sql = "INSERT INTO Claim (cDate, driverID) VALUES (@date, @driver)";
+                string sql = "INSERT INTO Claim (cDate, driverID, policyID) VALUES (@date, @driver, @policy)";
                 SqlCommand cmd = new SqlCommand(sql, myConnection);
                 cmd.Parameters.Add(new SqlParameter("@date", claim7));
                 cmd.Parameters.Add(new SqlParameter("@driver", driverID));
+                cmd.Parameters.Add(new SqlParameter("@policy", policy));
                 cmd.ExecuteNonQuery();
             }
             if (!String.IsNullOrEmpty(fiveclaim2.Text) && claimCheck5.Checked == false)
@@ -268,16 +276,17 @@ namespace InsuranceProgram
                 int driverID = int.Parse(Request.QueryString["driver5"]);
                 DateTime claim8 = Convert.ToDateTime(fiveclaim2.Text);
 
-                string sql = "INSERT INTO Claim (cDate, driverID) VALUES (@date, @driver)";
+                string sql = "INSERT INTO Claim (cDate, driverID, policyID) VALUES (@date, @driver, @policy)";
                 SqlCommand cmd = new SqlCommand(sql, myConnection);
                 cmd.Parameters.Add(new SqlParameter("@date", claim8));
                 cmd.Parameters.Add(new SqlParameter("@driver", driverID));
+                cmd.Parameters.Add(new SqlParameter("@policy", policy));
                 cmd.ExecuteNonQuery();
             }
 
             myConnection.Close();
 
-            Response.Redirect("premiumCalculation.aspx?policy=" + policy);
+            Response.Redirect("premiumCalculation.aspx?policyID=" + policy + "&primary=" + primary + "&start=" + start);
 
         }
     }

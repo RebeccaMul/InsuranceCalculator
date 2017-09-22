@@ -103,6 +103,15 @@ namespace InsuranceProgram {
         protected global::System.Web.UI.WebControls.TextBox twoclaim1;
         
         /// <summary>
+        /// DateValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator DateValidator;
+        
+        /// <summary>
         /// twoclaim2 control.
         /// </summary>
         /// <remarks>
@@ -110,6 +119,15 @@ namespace InsuranceProgram {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox twoclaim2;
+        
+        /// <summary>
+        /// RangeValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator1;
         
         /// <summary>
         /// driverdiv3 control.
@@ -157,6 +175,15 @@ namespace InsuranceProgram {
         protected global::System.Web.UI.WebControls.TextBox threeclaim1;
         
         /// <summary>
+        /// RangeValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator2;
+        
+        /// <summary>
         /// threeclaim2 control.
         /// </summary>
         /// <remarks>
@@ -164,6 +191,15 @@ namespace InsuranceProgram {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox threeclaim2;
+        
+        /// <summary>
+        /// RangeValidator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator3;
         
         /// <summary>
         /// driverdiv4 control.
@@ -211,6 +247,15 @@ namespace InsuranceProgram {
         protected global::System.Web.UI.WebControls.TextBox fourclaim1;
         
         /// <summary>
+        /// RangeValidator4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator4;
+        
+        /// <summary>
         /// fourclaim2 control.
         /// </summary>
         /// <remarks>
@@ -218,6 +263,15 @@ namespace InsuranceProgram {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox fourclaim2;
+        
+        /// <summary>
+        /// RangeValidator5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator5;
         
         /// <summary>
         /// driverdiv5 control.
@@ -265,6 +319,15 @@ namespace InsuranceProgram {
         protected global::System.Web.UI.WebControls.TextBox fiveclaim1;
         
         /// <summary>
+        /// RangeValidator6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator6;
+        
+        /// <summary>
         /// fiveclaim2 control.
         /// </summary>
         /// <remarks>
@@ -272,6 +335,15 @@ namespace InsuranceProgram {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox fiveclaim2;
+        
+        /// <summary>
+        /// RangeValidator7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator7;
         
         /// <summary>
         /// Decline control.

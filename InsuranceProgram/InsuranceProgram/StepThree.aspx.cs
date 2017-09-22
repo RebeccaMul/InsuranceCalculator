@@ -22,17 +22,19 @@ namespace InsuranceProgram
                 if (Request.QueryString["policyID"] != null)
                 {
                     row = int.Parse(Request.QueryString["policyID"]);
+                    int driver = int.Parse(Request.QueryString["driverID"]);
 
                     string connectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                     SqlConnection myConnection = new SqlConnection(connectionString);
 
                     myConnection.Open();
 
-                    string query = "SELECT * FROM Policy INNER JOIN Driver ON Policy.policyID = Driver.policyID WHERE Policy.policyID=@rowid";
+                    string query = "SELECT * FROM Policy INNER JOIN Driver ON Policy.policyID = Driver.policyID WHERE Policy.policyID=@rowid AND Driver.driverID=@driver";
 
                     SqlCommand myCommand = new SqlCommand(query, myConnection);
 
                     myCommand.Parameters.AddWithValue("@rowid", row);
+                    myCommand.Parameters.AddWithValue("@driver", driver);
 
                     SqlDataReader rdr = myCommand.ExecuteReader();
 
@@ -63,7 +65,7 @@ namespace InsuranceProgram
             SqlConnection myConnection = new SqlConnection(connectionString);
 
             myConnection.Open();
-            string query = "DELETE FROM Claim WHERE driverID=@driver; DELETE FROM Driver WHERE driverID=@driver; DELETE FROM Policy WHERE policyID=@policy";
+            string query = "DELETE FROM Claim WHERE policyID=@policy; DELETE FROM Driver WHERE policyID=@policy; DELETE FROM Policy WHERE policyID=@policy";
 
             SqlCommand myCommand = new SqlCommand(query, myConnection);
 
@@ -142,6 +144,7 @@ namespace InsuranceProgram
             //Getting policy and driver details
             int policy = int.Parse(Request.QueryString["policyID"]);
             int driver = int.Parse(Request.QueryString["driverID"]);
+            String start = chosenStart.Text;
 
             //If no drivers have been added but the user has not confirmed this, present a warning:
             if (driverbtn.Visible == true && driverCheck.Checked == false)
@@ -153,7 +156,7 @@ namespace InsuranceProgram
             //No drivers are confirmed, just advance to calculation:
             if (driverCheck.Checked == true && moreDrivers.Visible == false)
             {
-                Response.Redirect("premiumCalculation.aspx?policyID=" + policy + "&driverID=" + driver);
+                Response.Redirect("premiumCalculation.aspx?policyID=" + policy + "&primary=" + driver + "&start=" + start);
             }
 
             //Additional drivers required, advance to adding them to policy:
